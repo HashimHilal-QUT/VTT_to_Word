@@ -1,4 +1,5 @@
 # VTT to DOCX Transcript Converter
+![VTT to Word Icon](ICON.webp)
 
 <p align="center">
   <strong>Convert WebVTT transcripts into clean, research-ready Microsoft Word documents.</strong>
