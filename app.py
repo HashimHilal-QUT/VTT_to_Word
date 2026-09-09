@@ -73,7 +73,6 @@ def parse_vtt(vtt_text):
         if line.startswith(("NOTE", "STYLE", "REGION")):
             continue
 
-        # Remove common VTT formatting tags
         line = re.sub(r"<[^>]+>", "", line)
 
         current_block.append(line)
@@ -84,30 +83,49 @@ def parse_vtt(vtt_text):
     return transcript_blocks
 
 
-def add_document_header(document, student_name, student_number, unit):
+def validate_header_text(header_text):
+    """
+    Limit header content to a maximum of 4 non-empty lines.
+    """
+
+    lines = [
+        line.strip()
+        for line in header_text.splitlines()
+        if line.strip()
+    ]
+
+    if len(lines) > 4:
+        return False, lines
+
+    return True, lines
+
+
+def add_document_header(document, header_text):
+    """
+    Add custom user-entered text to the Word header.
+    Maximum 4 lines.
+    """
+
     section = document.sections[0]
     header = section.header
 
     paragraph = header.paragraphs[0]
+    paragraph.paragraph_format.space_before = Pt(0)
     paragraph.paragraph_format.space_after = Pt(0)
 
-    run = paragraph.add_run("Student Name: ")
-    set_run_font(run, bold=True)
+    valid, lines = validate_header_text(header_text)
 
-    run = paragraph.add_run(student_name)
-    set_run_font(run)
+    if not valid:
+        raise ValueError(
+            "Document header can contain a maximum of 4 lines."
+        )
 
-    run = paragraph.add_run("\nStudent Number: ")
-    set_run_font(run, bold=True)
+    for index, line in enumerate(lines):
+        run = paragraph.add_run(line)
+        set_run_font(run)
 
-    run = paragraph.add_run(student_number)
-    set_run_font(run)
-
-    run = paragraph.add_run("\nUnit: ")
-    set_run_font(run, bold=True)
-
-    run = paragraph.add_run(unit)
-    set_run_font(run)
+        if index < len(lines) - 1:
+            run.add_break()
 
 
 def add_field(run, field_name):
@@ -136,7 +154,7 @@ def add_field(run, field_name):
 
 def add_page_numbers(document):
     """
-    Add footer in the format:
+    Add centered footer:
     Page 1 of 10
     """
 
@@ -161,22 +179,16 @@ def add_page_numbers(document):
         add_field(total_run, "NUMPAGES")
 
 
-def create_docx(
-    transcript_blocks,
-    student_name,
-    student_number,
-    unit
-):
+def create_docx(transcript_blocks, header_text):
     document = Document()
 
     set_document_font(document)
 
-    add_document_header(
-        document,
-        student_name,
-        student_number,
-        unit
-    )
+    if header_text.strip():
+        add_document_header(
+            document,
+            header_text
+        )
 
     add_page_numbers(document)
 
@@ -234,25 +246,40 @@ st.info(
 
 
 # ---------------------------------------------------------
-# Document Header Details
+# Document Header
 # ---------------------------------------------------------
 
-st.subheader("Document Header Details")
+st.subheader("Document Header")
 
-student_name = st.text_input(
-    "Student Name:",
-    placeholder="e.g. Hashim Hilal"
+st.caption(
+    "Optional. Enter up to 4 lines of text. "
+    "This text will appear in the Word document header on every page."
 )
 
-student_number = st.text_input(
-    "Student Number:",
-    placeholder="e.g. N12345678"
+header_text = st.text_area(
+    "Header text:",
+    height=120,
+    placeholder=(
+        "Researcher Name: Jane Smith\n"
+        "Research Project: Human-Centred Design Study\n"
+        "Participant: Participant A\n"
+        "Interview Type: Follow-up Interview"
+    )
 )
 
-unit = st.text_input(
-    "Unit:",
-    placeholder="e.g. IFN680"
-)
+
+# Validate header immediately
+header_valid, header_lines = validate_header_text(header_text)
+
+if not header_valid:
+    st.error(
+        "The document header is limited to a maximum of 4 lines. "
+        "Please remove one or more lines."
+    )
+else:
+    st.caption(
+        f"Header lines used: {len(header_lines)} / 4"
+    )
 
 
 # ---------------------------------------------------------
@@ -279,45 +306,38 @@ if uploaded_file is not None:
                 "No transcript content was found in the uploaded VTT file."
             )
 
+        elif not header_valid:
+            st.warning(
+                "Please correct the document header before downloading."
+            )
+
         else:
             st.success(
                 f"Transcript loaded successfully. "
                 f"{len(transcript)} transcript blocks found."
             )
 
-            if not student_name:
-                st.warning("Please enter the Student Name.")
+            docx_file = create_docx(
+                transcript,
+                header_text
+            )
 
-            elif not student_number:
-                st.warning("Please enter the Student Number.")
+            output_filename = (
+                uploaded_file.name.rsplit(".", 1)[0]
+                + ".docx"
+            )
 
-            elif not unit:
-                st.warning("Please enter the Unit.")
-
-            else:
-                docx_file = create_docx(
-                    transcript,
-                    student_name,
-                    student_number,
-                    unit
-                )
-
-                output_filename = (
-                    uploaded_file.name.rsplit(".", 1)[0]
-                    + ".docx"
-                )
-
-                st.download_button(
-                    label="Download DOCX",
-                    data=docx_file,
-                    file_name=output_filename,
-                    mime=(
-                        "application/"
-                        "vnd.openxmlformats-officedocument."
-                        "wordprocessingml.document"
-                    ),
-                    use_container_width=True
-                )
+            st.download_button(
+                label="Download DOCX",
+                data=docx_file,
+                file_name=output_filename,
+                mime=(
+                    "application/"
+                    "vnd.openxmlformats-officedocument."
+                    "wordprocessingml.document"
+                ),
+                use_container_width=True
+            )
 
     except UnicodeDecodeError:
         st.error(
