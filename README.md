@@ -30,18 +30,6 @@ https://vtt-to-word.streamlit.app/
 
 ---
 
-## 🚀 Live Demo
-
-The application is deployed using **Streamlit Community Cloud**.
-
-### Open the application
-
-👉 **https://vtt-to-word.streamlit.app/**
-
-No installation or account is required to use the online application.
-
----
-
 ## 📖 How to Use
 
 ### 1. Enter Document Header Information
@@ -53,10 +41,10 @@ You can enter up to **4 lines of text** that will appear in the header of every 
 For example:
 
 ```text
-Researcher: Jane Smith
-Project: Human-Centred Design Study
-Participant: Participant A
-Session: Follow-up Interview
+Researcher: 
+Project: 
+Participant: 
+Session: 
 ```
 
 The header is deliberately flexible so that researchers can use whatever information is appropriate for their project.
