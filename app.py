@@ -232,9 +232,9 @@ st.set_page_config(
 )
 
 # ---  Icon Image ---
-# Uses the raw URL to ensure Streamlit can load it successfully
-icon_url = "https://github.com/HashimHilal-QUT/VTT_to_Word/blob/main/ICON.webp"
-st.image(icon_url, width=150) 
+st.image(
+    "https://raw.githubusercontent.com/HashimHilal-QUT/VTT_to_Word/main/ICON.webp",
+    width=140
 
 st.title("VTT to DOCX Transcript Converter")
 
