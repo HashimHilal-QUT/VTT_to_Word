@@ -234,7 +234,7 @@ st.set_page_config(
 # ---  Icon Image ---
 st.image(
     "https://raw.githubusercontent.com/HashimHilal-QUT/VTT_to_Word/main/ICON.webp",
-    width=140
+    width=140)
 
 st.title("VTT to DOCX Transcript Converter")
 
