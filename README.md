@@ -11,8 +11,6 @@
 <p align="center">
   <a href="https://vtt-to-word.streamlit.app/"><strong>Launch the application</strong></a>
   ·
-  <a href="#quick-start">Run locally</a>
-  ·
   <a href="#privacy-and-data-handling">Privacy</a>
   ·
   <a href="#contributing">Contribute</a>
