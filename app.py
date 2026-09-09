@@ -226,23 +226,28 @@ def create_docx(transcript_blocks, header_text):
 # ---------------------------------------------------------
 
 st.set_page_config(
-    page_title="VTT to DOCX Converter",
+    page_title="VTT to Word Converter",
     page_icon="📄",
     layout="centered"
 )
 
-# ---  Icon Image ---
-col1, col2, col3 = st.columns([1, 1, 1])
+st.set_page_config(
+    page_title="VTT to DOCX Converter",
+    page_icon="https://raw.githubusercontent.com/HashimHilal-QUT/VTT_to_Word/main/ICON.webp",
+    layout="centered"
+)
+
+col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     st.image(
         "https://raw.githubusercontent.com/HashimHilal-QUT/VTT_to_Word/main/ICON.webp",
-        width=140
+        use_container_width=True
     )
 
    
 
-st.title("VTT to DOCX Transcript Converter")
+st.title("VTT to Word Transcript Converter")
 
 st.write(
     "Convert WebVTT (.vtt) interview transcripts into clean "
