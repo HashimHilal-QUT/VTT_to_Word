@@ -358,14 +358,15 @@ st.markdown(
     """
     <div style="
         text-align: center;
-        color: grey;
+        color: red;
         font-size: 0.85rem;
         padding-top: 10px;
         padding-bottom: 20px;
     ">
-        <strong>Disclaimer:</strong>
-        Uploaded transcript files are processed for conversion and are
-        not intentionally stored by this application.
+        <strong>Privacy & Data Handling Notice:</strong>
+        This application does not store or retain any voice recordings, transcripts, or generated Word documents.
+        Your data is processed in memory solely to perform the requested conversion and is automatically discarded immediately upon completion.             
+        No transcript content is saved to databases, logs, or persistent storage.
     </div>
     """,
     unsafe_allow_html=True
