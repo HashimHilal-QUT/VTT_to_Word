@@ -462,7 +462,7 @@ You can also open a GitHub Issue to report a problem or propose an improvement.
 
 ## Acknowledgements
 
-Built with Python, Streamlit, and python-docx.
+Built by Hashim Hilal - Student QUT - Master of AI
 
 <p align="center">
   <a href="https://vtt-to-word.streamlit.app/"><strong>Open VTT to DOCX Transcript Converter</strong></a>
