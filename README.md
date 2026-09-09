@@ -219,6 +219,171 @@ Users remain responsible for complying with applicable:
 
 Where required, anonymise or de-identify transcript data before processing or sharing it.
 
+---
+
+## Run the Streamlit App Locally
+
+You can run the application on your own computer for development, testing, or private use.
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- **Python 3.9 or later**
+- **pip**
+- **Git**
+
+You can verify Python is installed with:
+
+```bash
+python --version
+```
+
+On some systems, use:
+
+```bash
+python3 --version
+```
+
+### 1. Clone the repository
+
+Open a terminal, PowerShell, or command prompt and run:
+
+```bash
+git clone https://github.com/HashimHilal-QUT/VTT_to_Word.git
+```
+
+Then move into the project folder:
+
+```bash
+cd VTT_to_Word
+```
+
+### 2. Create a virtual environment
+
+Creating a virtual environment is recommended so the project dependencies remain isolated from your other Python projects.
+
+#### Windows PowerShell
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks script execution, you can activate the environment from Command Prompt instead:
+
+```cmd
+.venv\Scripts\activate.bat
+```
+
+#### macOS / Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install the required packages
+
+With the virtual environment activated, run:
+
+```bash
+pip install -r requirements.txt
+```
+
+The application primarily requires:
+
+```text
+streamlit
+python-docx
+```
+
+### 4. Start the Streamlit application
+
+Run:
+
+```bash
+streamlit run app.py
+```
+
+Streamlit should open the application automatically in your default web browser. If it does not, open:
+
+```text
+http://localhost:8501
+```
+
+### 5. Use the application locally
+
+Once the page is open:
+
+1. Optionally enter up to four lines in the **Document Header** field.
+2. Upload a `.vtt` transcript file.
+3. Wait for the transcript to be processed.
+4. Select **Download DOCX** to save the generated Word document.
+
+The local version behaves in the same way as the hosted Streamlit application.
+
+### 6. Stop the application
+
+Return to the terminal where Streamlit is running and press:
+
+```text
+Ctrl + C
+```
+
+### Updating your local copy
+
+If you cloned the repository previously and want the latest version, run:
+
+```bash
+git pull origin main
+```
+
+Then refresh dependencies if `requirements.txt` has changed:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Troubleshooting
+
+#### `streamlit` command not found
+
+Make sure the virtual environment is activated, then run:
+
+```bash
+pip install streamlit
+```
+
+Alternatively, start Streamlit through Python:
+
+```bash
+python -m streamlit run app.py
+```
+
+#### `ModuleNotFoundError: No module named 'docx'`
+
+Install the required package:
+
+```bash
+pip install python-docx
+```
+
+#### Port 8501 is already in use
+
+Run Streamlit on another port:
+
+```bash
+streamlit run app.py --server.port 8502
+```
+
+Then open:
+
+```text
+http://localhost:8502
+```
+
+
 ## Project Structure
 
 ```text
