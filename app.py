@@ -358,7 +358,7 @@ st.markdown(
     """
     <div style="
         text-align: center;
-        color: red;
+        color: black;
         font-size: 0.85rem;
         padding-top: 10px;
         padding-bottom: 20px;
