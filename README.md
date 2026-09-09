@@ -1,63 +1,130 @@
-# 📄 VTT to DOCX Transcript Converter
+# VTT to DOCX Transcript Converter
 
-A simple, privacy-conscious Streamlit application for converting **WebVTT (`.vtt`) transcript files** into clean, formatted **Microsoft Word (`.docx`) documents**.
+<p align="center">
+  <strong>Convert WebVTT transcripts into clean, research-ready Microsoft Word documents.</strong>
+</p>
 
-The application is designed primarily for **researchers, students, academics, UX/HCD practitioners, and anyone working with interview or meeting transcripts**.
+<p align="center">
+  A lightweight, privacy-conscious Streamlit application for researchers, students, academics, UX/HCD practitioners, and anyone working with interview or meeting transcripts.
+</p>
 
-🌐 **Live Application:**  
-https://vtt-to-word.streamlit.app/
+<p align="center">
+  <a href="https://vtt-to-word.streamlit.app/"><strong>Launch the application</strong></a>
+  ·
+  <a href="#quick-start">Run locally</a>
+  ·
+  <a href="#privacy-and-data-handling">Privacy</a>
+  ·
+  <a href="#contributing">Contribute</a>
+</p>
 
----
-
-## ✨ Features
-
-- Upload and convert `.vtt` transcript files directly in your browser
-- Generates a formatted Microsoft Word `.docx` document
-- Removes WebVTT timestamps
-- Removes VTT cue numbers
-- Removes VTT metadata
-- Preserves the original sequence of speaker turns
-- Preserves interviewer questions and participant responses
-- Automatically identifies and formats speaker names
-- Speaker names are displayed in **bold**
-- Transcript text is formatted using **Calibri, 12 pt**
-- Supports an optional custom document header
-- Custom document header supports up to **4 lines**
-- Automatically adds page numbers to long transcripts
-- Word footer uses the format **Page X of Y**
-- No transcript content is intentionally stored
-- No database is required
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white">
+  <img alt="Streamlit" src="https://img.shields.io/badge/Streamlit-Application-FF4B4B?logo=streamlit&logoColor=white">
+  <img alt="Output" src="https://img.shields.io/badge/Output-DOCX-2B579A?logo=microsoftword&logoColor=white">
+  <img alt="Input" src="https://img.shields.io/badge/Input-WebVTT-4F46E5">
+  <img alt="Licence" src="https://img.shields.io/badge/Licence-Add%20licence-lightgrey">
+</p>
 
 ---
 
-## 📖 How to Use
+## Overview
 
-### 1. Enter Document Header Information
+**VTT to DOCX Transcript Converter** transforms WebVTT (`.vtt`) transcript files into readable Microsoft Word (`.docx`) documents. It removes VTT-specific timing and cue information while preserving the original conversational sequence and formatting speaker names for easier review and qualitative analysis.
 
-The **Document Header** field is optional.
+### Why use it?
 
-You can enter up to **4 lines of text** that will appear in the header of every page of the generated Word document.
+- Produce a clean Word transcript without manually removing VTT timestamps
+- Preserve interviewer questions, participant responses, and speaker order
+- Add an optional project-specific header to every page
+- Generate page numbering in the format **Page X of Y**
+- Use the hosted application without installing software or creating an account
 
-For example:
+> [!IMPORTANT]
+> This converter formats existing transcript text. It does not perform speech-to-text transcription, correct transcript errors, summarise interviews, interpret responses, or perform thematic analysis.
 
-```text
-Researcher: 
-Project: 
-Participant: 
-Session: 
+---
+
+## Features
+
+### Transcript processing
+
+- Upload `.vtt` transcript files through a browser
+- Remove `WEBVTT` headers, timestamps, cue numbers, and supported metadata
+- Preserve the original order of speaker turns
+- Preserve interviewer prompts and participant responses
+- Identify and format speaker labels
+
+### Word document output
+
+- Generate Microsoft Word `.docx` files
+- Format speaker names in **bold**
+- Format transcript text in **Calibri, 12 pt**
+- Add an optional document header of up to **four lines**
+- Repeat the document header on every page
+- Add page numbering in the format **Page X of Y**
+
+### Application design
+
+- Run as a lightweight Streamlit application
+- Operate without a transcript database
+- Process transcript content for the requested conversion
+- Provide the generated document directly for download
+
+---
+
+## Live Application
+
+The application is deployed on Streamlit Community Cloud.
+
+<p align="center">
+  <a href="https://vtt-to-word.streamlit.app/">
+    <img alt="Open application" src="https://img.shields.io/badge/Open%20VTT%20to%20DOCX%20Converter-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
+  </a>
+</p>
+
+No installation or account is required to use the hosted application.
+
+---
+
+## How It Works
+
+```mermaid
+flowchart TD
+    A[Select a WebVTT file] --> B[Upload transcript]
+    B --> C[Process transcript in memory]
+    C --> D[Remove timestamps and cue numbers]
+    D --> E[Remove supported VTT metadata]
+    E --> F[Preserve speaker turns]
+    F --> G[Apply Word formatting]
+    G --> H[Generate DOCX]
+    H --> I[Download Word document]
 ```
 
-The header is deliberately flexible so that researchers can use whatever information is appropriate for their project.
+The converter focuses on document transformation rather than transcript interpretation. The wording and sequence of the supplied transcript are retained as closely as possible while VTT-specific structural content is removed.
 
 ---
 
-### 2. Upload a VTT File
+## Usage
 
-Upload a WebVTT transcript with the `.vtt` extension.
+### 1. Add an optional document header
 
-A typical VTT transcript may look like:
+Enter up to four lines of information to be displayed in the header of every page.
 
 ```text
+Researcher: Jane Smith
+Project: Human-Centred Design Study
+Participant: Participant A
+Session: Follow-up Interview
+```
+
+The field is flexible, allowing you to use headings that suit your project or research requirements.
+
+### 2. Upload a WebVTT transcript
+
+Select a file with the `.vtt` extension. A typical input file looks like this:
+
+```vtt
 WEBVTT
 
 1
@@ -69,79 +136,61 @@ Interviewer: Thank you for joining the interview.
 Participant: Thank you. Happy to participate.
 ```
 
----
+### 3. Convert the transcript
 
-### 3. Convert the Transcript
+The application removes:
 
-The application processes the VTT transcript and removes:
-
-- `WEBVTT` headers
+- The `WEBVTT` header
 - Cue numbers
 - Timestamps
 - Supported VTT formatting tags and metadata
 
-The conversational sequence is retained.
+The original conversational sequence is preserved.
+
+### 4. Download the Word document
+
+Select **Download DOCX** after processing is complete. The generated document will contain formatted dialogue similar to:
+
+> **Interviewer:** Thank you for joining the interview.
+>
+> **Participant:** Thank you. Happy to participate.
 
 ---
 
-### 4. Download the Word Document
+## Document Formatting
 
-After conversion, select:
-
-**Download DOCX**
-
-The resulting document will contain:
-
-```text
-Interviewer: Thank you for joining the interview.
-
-Participant: Thank you. Happy to participate.
-```
-
-Speaker names are displayed in **bold**, while the transcript text remains in **Calibri 12 pt**.
-
----
-
-## 📝 Word Document Formatting
-
-Generated Word documents use the following formatting:
-
-| Feature | Format |
+| Element | Output format |
 |---|---|
 | File type | Microsoft Word `.docx` |
-| Font | Calibri |
+| Body font | Calibri |
 | Font size | 12 pt |
 | Speaker names | Bold |
-| Dialogue | Normal |
+| Dialogue | Normal text |
 | Speaker sequence | Preserved |
-| Document header | Optional, maximum 4 lines |
-| Header placement | Every page |
-| Page numbering | Every page |
-| Page number format | Page X of Y |
+| Document header | Optional, maximum four lines |
+| Header placement | Repeated on every page |
+| Footer | Page numbering on every page |
+| Page-number format | Page X of Y |
 
-This formatting is intended to produce a clean and readable transcript suitable for research documentation and qualitative analysis.
+This formatting is intended to produce a clean, readable transcript suitable for research documentation and qualitative analysis.
 
 ---
 
-## 🧠 Preserving Interview Context
+## Preserving Interview Context
 
-The converter deliberately preserves individual **speaker turns** rather than combining all consecutive statements from the same speaker.
+The converter preserves individual speaker turns rather than combining consecutive statements attributed to the same person.
 
-This is particularly important for research interviews because interviewer questions, follow-up prompts, clarification questions, and participant responses provide important context.
+This is important in research interviews because follow-up prompts, clarification questions, and participant responses provide context that may be lost if dialogue is merged.
 
-For example:
+### Example
 
-```text
-Participant: I found the interface easy to use.
+> **Participant:** I found the interface easy to use.
+>
+> **Interviewer:** What specifically made it easy to use?
+>
+> **Participant:** The navigation was simple and I could quickly find what I needed.
 
-Interviewer: What specifically made it easy to use?
-
-Participant: The navigation was simple and I could quickly find what I needed.
-```
-
-The application maintains this conversational sequence rather than combining participant responses into a single paragraph.
-
-This makes the resulting documents more suitable for:
+This structure is useful for:
 
 - Qualitative research
 - Contextual Inquiry
@@ -150,150 +199,47 @@ This makes the resulting documents more suitable for:
 - Usability studies
 - Thematic analysis
 - Research coding
-- Academic quoting and referencing
+- Academic quotation and referencing
 
 ---
 
-## 🔒 Privacy & Data Handling Notice
+## Privacy and Data Handling
 
-**This application does not store or retain any voice recordings, transcripts, or generated Word documents.**
+> [!NOTE]
+> **The application is designed not to store or retain voice recordings, transcript content, or generated Word documents after conversion.** Uploaded content is processed for the purpose of generating the requested document, and the application does not require a transcript database.
 
-Your data is processed in memory solely to perform the requested conversion and is automatically discarded immediately upon completion.
+No transcript content should be deliberately written to application logs or persistent storage. This statement must remain aligned with the deployed source code, application logging configuration, Streamlit hosting configuration, and any third-party services introduced in the future.
 
-**No transcript content is saved to databases, logs, or persistent storage.**
+Users remain responsible for complying with applicable:
 
-Users should nevertheless follow their institution's research ethics, privacy, confidentiality, and data-handling requirements when processing research participant information.
+- Research ethics approvals
+- Participant consent arrangements
+- Institutional data-management policies
+- Privacy and confidentiality requirements
+- Data-retention obligations
 
----
+Where required, anonymise or de-identify transcript data before processing or sharing it.
 
-## 🛡️ Data Processing Design
-
-The application has been intentionally designed as a lightweight conversion utility.
-
-The basic processing workflow is:
-
-```text
-User's Browser
-      │
-      ▼
-Upload VTT Transcript
-      │
-      ▼
-Streamlit Application
-      │
-      ▼
-Process Transcript in Memory
-      │
-      ├── Remove VTT timestamps
-      ├── Remove cue numbers
-      ├── Remove metadata
-      ├── Preserve speaker turns
-      ├── Apply document formatting
-      └── Generate DOCX
-      │
-      ▼
-Download Word Document
-      │
-      ▼
-Processing Complete
-```
-
-The application does not require a transcript database or persistent transcript storage.
-
----
-
-## 💻 Running Locally
-
-### Prerequisites
-
-You will need:
-
-- Python 3.9 or later
-- pip
-
-Clone the repository:
-
-```bash
-git clone https://github.com/YOUR-USERNAME/vtt-to-docx-streamlit.git
-```
-
-Navigate to the repository:
-
-```bash
-cd vtt-to-docx-streamlit
-```
-
-Install the required packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run the Streamlit application:
-
-```bash
-streamlit run app.py
-```
-
-Streamlit will normally open the application at:
-
-```text
-http://localhost:8501
-```
-
----
-
-## 📦 Requirements
-
-The project primarily uses:
-
-```text
-streamlit
-python-docx
-```
-
-These dependencies are defined in:
-
-```text
-requirements.txt
-```
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```text
 vtt-to-docx-streamlit/
-│
 ├── app.py
 ├── requirements.txt
 ├── README.md
 └── .gitignore
 ```
 
-### `app.py`
-
-Contains:
-
-- Streamlit user interface
-- VTT parser
-- Transcript processing
-- DOCX generation
-- Custom header generation
-- Word page numbering
-- Download functionality
-
-### `requirements.txt`
-
-Contains the Python package dependencies required by the application.
-
-### `.gitignore`
-
-Prevents local Python environments, cache files, and other unnecessary files from being committed to the repository.
+| File | Purpose |
+|---|---|
+| `app.py` | Streamlit interface, VTT processing, DOCX generation, headers, page numbering, and downloads |
+| `requirements.txt` | Python package dependencies |
+| `README.md` | Project documentation |
+| `.gitignore` | Excludes local environments, cache files, and unnecessary generated files |
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Python**
 - **Streamlit**
@@ -304,131 +250,56 @@ Prevents local Python environments, cache files, and other unnecessary files fro
 
 ---
 
-## 🎯 Intended Use
+## Intended Use
 
-The application can be useful for converting transcripts generated from:
+The converter may be useful for transcripts produced from:
 
 - Research interviews
 - Contextual Inquiry sessions
 - Human-Centred Design studies
 - UX research
-- Usability testing sessions
+- Usability testing
 - Academic interviews
 - Focus groups
-- User research
+- User-research sessions
 - Meeting recordings
 - Online interview platforms
-- Video conferencing transcription tools
+- Video-conferencing transcription tools
 
-The converter expects transcripts to be supplied in the standard **WebVTT (`.vtt`) format**.
+Input must be supplied in WebVTT (`.vtt`) format.
 
 ---
 
-## ⚠️ Important Notes
+### Word page fields
 
-### Transcript Accuracy
-
-This application converts and formats existing transcript text.
-
-It does **not**:
-
-- Perform speech-to-text transcription
-- Correct transcription errors
-- Rewrite participant responses
-- Summarise interviews
-- Interpret participant statements
-- Perform thematic analysis
-
-The content of the original VTT transcript is retained as closely as possible while removing VTT-specific formatting information.
-
-### Page Numbers
-
-Page numbers are implemented using Microsoft Word fields:
-
-```text
-PAGE
-NUMPAGES
-```
-
-They are displayed as:
+Page numbering uses the Microsoft Word `PAGE` and `NUMPAGES` fields and is displayed in the following format:
 
 ```text
 Page 1 of 10
 ```
 
-Microsoft Word normally calculates these fields automatically when the document is opened.
-
-Some alternative DOCX viewers may not immediately update Word fields.
+Microsoft Word normally calculates these fields when the document is opened. Some alternative DOCX viewers may not immediately refresh them.
 
 ---
 
-## 🔬 Research Use
+## Contributing
 
-When using the application with research data, researchers remain responsible for ensuring that their use complies with applicable:
+Contributions, suggestions, and bug reports are welcome.
 
-- Research ethics approvals
-- Participant consent arrangements
-- Institutional data-management policies
-- Privacy requirements
-- Confidentiality requirements
-- Data retention policies
+1. Fork the repository.
+2. Create a feature branch.
+3. Make and test your changes.
+4. Submit a pull request with a clear description.
 
-Where required, researchers should anonymise or de-identify transcript data before processing or sharing it.
+You can also open a GitHub Issue to report a problem or propose an improvement.
 
 ---
 
-## 🤝 Contributing
 
-Suggestions, improvements, bug reports, and contributions are welcome.
+## Acknowledgements
 
-You can contribute by:
+Built with Python, Streamlit, and python-docx.
 
-1. Forking the repository
-2. Creating a feature branch
-3. Making your changes
-4. Submitting a pull request
-
-You can also open a GitHub Issue to report problems or suggest improvements.
-
----
-
-## 💡 Future Enhancements
-
-Potential future improvements may include:
-
-- Additional document formatting options
-- User-selectable fonts and font sizes
-- Optional timestamps
-- Custom page margins
-- Multiple-file conversion
-- Batch VTT processing
-- Transcript preview before download
-- TXT export
-- PDF export
-- Additional subtitle/transcript formats
-- Speaker-name customisation
-- Automatic anonymisation options
-
----
-
-## 📜 License
-
-Add the appropriate open-source licence for your project here.
-
-For example:
-
-```text
-MIT License
-```
-
-If this repository is intended for public reuse, adding a `LICENSE` file is recommended.
-
----
-
-## 🌐 Application
-
-**VTT to DOCX Transcript Converter**
-
-👉 https://vtt-to-word.streamlit.app/
-
-Built with Python and Streamlit.
+<p align="center">
+  <a href="https://vtt-to-word.streamlit.app/"><strong>Open VTT to DOCX Transcript Converter</strong></a>
+</p>
